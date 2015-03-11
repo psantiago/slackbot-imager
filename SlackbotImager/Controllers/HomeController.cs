@@ -41,7 +41,7 @@ namespace SlackbotImager.Controllers
 
                 var slackResponse = new SlackResponse
                 {
-                    text = "",
+                    text = "Here's an image of " + query,
                     attachments = new List<SlackAttachment> { new SlackAttachment { fallback = imageToUse.contentNoFormatting ?? "", image_url = imageToUse.unescapedUrl } }
                 };
 
