@@ -33,7 +33,7 @@ namespace SlackbotImager.Controllers
                     String.Format("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&start={2}&safe=active{0}&q={1}",
                     filetype,
                     query,
-                    random.Next(0, 9) * 4));
+                    random.Next(0, 3) * 8));
 
                 dynamic test = JsonConvert.DeserializeObject(response);
 
