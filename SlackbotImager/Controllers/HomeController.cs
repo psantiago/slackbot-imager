@@ -31,7 +31,8 @@ namespace SlackbotImager.Controllers
 
                 var slackResponse = new SlackResponse
                 {
-                    attachments = new List<SlackAttachment> { new SlackAttachment { image_url = imageToUse.unescapedUrl } }
+                    text = "hello",
+                    attachments = new List<SlackAttachment> { new SlackAttachment { fallback = "meow", image_url = imageToUse.unescapedUrl } }
                 };
 
                 return Json(slackResponse, JsonRequestBehavior.AllowGet);
