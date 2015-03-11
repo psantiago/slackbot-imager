@@ -21,13 +21,23 @@ namespace SlackbotImager.Controllers
         [HttpPost]
         public ActionResult Index(SlackRequest request)
         {
+            var filetype = request.text.Contains("slackbot animate me") ? "&as_filetype=gif" : "";
+
+            var query = request.text.Replace("slackbot animate me", "").Replace("slackbot image me", "");
+
+            var random = new Random();
+
             using (var client = new WebClient())
             {
-                var response = client.DownloadString("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&start=0&safe=active&as_filetype=gif&q=facepalm");
+                var response = client.DownloadString(
+                    String.Format("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&start={2}&safe=active{0}&q={1}",
+                    filetype,
+                    query,
+                    random.Next(0, 9) * 4));
 
                 dynamic test = JsonConvert.DeserializeObject(response);
 
-                var imageToUse = test.responseData.results[new Random().Next(0, test.responseData.results.Count)];
+                var imageToUse = test.responseData.results[random.Next(0, test.responseData.results.Count)];
 
                 var slackResponse = new SlackResponse
                 {
@@ -37,8 +47,6 @@ namespace SlackbotImager.Controllers
 
                 return Json(slackResponse, JsonRequestBehavior.AllowGet);
             }
-
-            return Content("Here be dragons");
         }
     }
 }
