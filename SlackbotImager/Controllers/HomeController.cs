@@ -30,10 +30,10 @@ namespace SlackbotImager.Controllers
             using (var client = new WebClient())
             {
                 var response = client.DownloadString(
-                    String.Format("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=8&start={2}&safe=active{0}&q={1}",
+                    String.Format("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=6&start={2}&safe=active{0}&q={1}",
                     filetype,
                     query,
-                    random.Next(0, 3) * 8));
+                    0));
 
                 dynamic test = JsonConvert.DeserializeObject(response);
 
