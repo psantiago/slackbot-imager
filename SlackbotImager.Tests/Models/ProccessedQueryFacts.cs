@@ -4,12 +4,12 @@ using Xunit.Should;
 
 namespace SlackbotImager.Tests.Models
 {
-    public class ProccessedTextFacts
+    public class ProccessedQueryFacts
     {
         [Fact]
         public void ShouldProperlyParseIsLuckyTrue()
         {
-            var processedText = new ProcessedText("slackbot lucky image me cat pictures");
+            var processedText = new ProcessedQuery("slackbot lucky image me cat pictures");
 
             processedText.IsLucky.ShouldBeTrue();
         }
@@ -17,7 +17,7 @@ namespace SlackbotImager.Tests.Models
         [Fact]
         public void ShouldProperlyParseIsLuckyFalse()
         {
-            var processedText = new ProcessedText("slackbot image me cat pictures");
+            var processedText = new ProcessedQuery("slackbot image me cat pictures");
 
             processedText.IsLucky.ShouldBeFalse();
         }
@@ -25,7 +25,7 @@ namespace SlackbotImager.Tests.Models
         [Fact]
         public void ShouldProperlyParseIsAnimatedTrue()
         {
-            var processedText = new ProcessedText("slackbot animate me cat pictures");
+            var processedText = new ProcessedQuery("slackbot animate me cat pictures");
 
             processedText.IsAnimated.ShouldBeTrue();
         } 
@@ -33,7 +33,7 @@ namespace SlackbotImager.Tests.Models
         [Fact]
         public void ShouldProperlyParseIsAnimatedFalse()
         {
-            var processedText = new ProcessedText("slackbot image me cat pictures");
+            var processedText = new ProcessedQuery("slackbot image me cat pictures");
 
             processedText.IsAnimated.ShouldBeFalse();
         }
@@ -41,7 +41,7 @@ namespace SlackbotImager.Tests.Models
         [Fact]
         public void ShouldProperlyParseQuery()
         {
-            var processedText = new ProcessedText("slackbot image me cat pictures");
+            var processedText = new ProcessedQuery("slackbot image me cat pictures");
 
             processedText.Query.ShouldBe("cat pictures");
         }
@@ -49,7 +49,7 @@ namespace SlackbotImager.Tests.Models
         [Fact]
         public void ShouldProperlyParseIsCatQueryTrue()
         {
-            var processedText = new ProcessedText("slackbot image me cat pictures");
+            var processedText = new ProcessedQuery("slackbot image me cat pictures");
 
             processedText.IsCatQuery.ShouldBeTrue();
         } 
@@ -57,7 +57,7 @@ namespace SlackbotImager.Tests.Models
         [Fact]
         public void ShouldProperlyParseIsCatQueryFalse()
         {
-            var processedText = new ProcessedText("slackbot image me lots of facepalms");
+            var processedText = new ProcessedQuery("slackbot image me lots of facepalms");
 
             processedText.IsCatQuery.ShouldBeFalse();
         }

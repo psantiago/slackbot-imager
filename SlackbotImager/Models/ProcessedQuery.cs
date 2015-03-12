@@ -6,10 +6,10 @@ using System.Web;
 
 namespace SlackbotImager.Models
 {
-    public class ProcessedText
+    public class ProcessedQuery
     {
         private static readonly Regex Regex = new Regex(@"slackbot ??(lucky)? (image|animate) me (.*)");
-        public ProcessedText(string text)
+        public ProcessedQuery(string text)
         {
             var match = Regex.Match(text.ToLowerInvariant());
 

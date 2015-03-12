@@ -52,7 +52,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Models\ProccessedTextFacts.cs" />
+    <Compile Include="Models\ProccessedQueryFacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

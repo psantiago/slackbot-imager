@@ -22,19 +22,30 @@ namespace SlackbotImager.Controllers
         [HttpPost]
         public ActionResult Index(SlackRequest request)
         {
-            var filetype = request.text.Contains("slackbot animate me") ? "&as_filetype=gif" : "";
+            var processedQuery = new ProcessedQuery(request.text);
 
-            var query = request.text.Replace("slackbot animate me", "").Replace("slackbot image me", "");
+            if (processedQuery.IsCatQuery)
+            {
+                //TODO - call & return from cat api instead
+            }
+
+            return GoogleImageSearch(processedQuery);
+        }
+
+        private JsonResult GoogleImageSearch(ProcessedQuery processedQuery)
+        {
+            var filetype = processedQuery.IsAnimated ? "&as_filetype=gif" : "";
 
             var random = new Random();
 
             using (var client = new WebClient())
             {
                 var response = client.DownloadString(
-                    String.Format("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=6&start={2}&safe=active{0}&q={1}",
+                    String.Format("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz={3}&start={2}&safe=active{0}&q={1}",
                     filetype,
-                    query,
-                    0));
+                    processedQuery.Query,
+                    0,
+                    processedQuery.IsLucky ? 1 : 6));
 
                 dynamic test = JsonConvert.DeserializeObject(response);
 
@@ -42,7 +53,7 @@ namespace SlackbotImager.Controllers
 
                 var slackResponse = new SlackResponse
                 {
-                    text = "Here's an image of " + query,
+                    text = "Here's an image of " + processedQuery.Query,
                     attachments = new List<SlackAttachment> { new SlackAttachment { fallback = imageToUse.contentNoFormatting ?? "", image_url = imageToUse.unescapedUrl } }
                 };
 

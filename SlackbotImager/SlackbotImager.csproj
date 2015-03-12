@@ -93,7 +93,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProcessedText.cs" />
+    <Compile Include="Models\ProcessedQuery.cs" />
     <Compile Include="Models\SlackRequest.cs" />
     <Compile Include="Models\SlackResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
