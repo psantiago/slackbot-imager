@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -32,6 +34,19 @@ namespace SlackbotImager.Controllers
             return GoogleImageSearch(processedQuery);
         }
 
+        [HttpPost]
+        public ActionResult Slash(SlackSlashCommandRequest request)
+        {
+            var processedQuery = new ProcessedQuery(request.text);
+
+            if (processedQuery.IsCatQuery)
+            {
+                //TODO - call & return from cat api instead
+            }
+
+            return GoogleImageSearch(processedQuery);
+        }
+
         private JsonResult GoogleImageSearch(ProcessedQuery processedQuery)
         {
             var filetype = processedQuery.IsAnimated ? "&as_filetype=gif" : "";
@@ -53,12 +68,35 @@ namespace SlackbotImager.Controllers
 
                 var slackResponse = new SlackResponse
                 {
-                    text = "Here's an image of " + processedQuery.Query,
+                    text = "Here's " + (processedQuery.IsLucky ? "the first" : "an") + " image of " + processedQuery.Query,
                     attachments = new List<SlackAttachment> { new SlackAttachment { fallback = imageToUse.contentNoFormatting ?? "", image_url = imageToUse.unescapedUrl } }
                 };
 
                 return Json(slackResponse, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private void PostImageToSlack(SlackSlashCommandRequest request)
+        {
+
+            using (var client = new WebClient())
+            {
+                client.UploadValues("https://slack.com/api/chat.postMessage",
+                    new NameValueCollection
+                    {
+                        {"token", ConfigurationManager.AppSettings["token"]},
+                        {"channel", request.channel_id},
+                        {"text", ConfigurationManager.AppSettings["token"]},
+                        {"username", ConfigurationManager.AppSettings["token"]},
+                        {"attachments", ConfigurationManager.AppSettings["token"]},
+                        {"icon_url", ConfigurationManager.AppSettings["token"]},
+                    });
+            }
+        }
+
+        private SlackUser GetUser(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

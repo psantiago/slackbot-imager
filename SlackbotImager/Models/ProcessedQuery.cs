@@ -8,7 +8,7 @@ namespace SlackbotImager.Models
 {
     public class ProcessedQuery
     {
-        private static readonly Regex Regex = new Regex(@"slackbot ??(lucky)? (image|animate) me (.*)");
+        private static readonly Regex Regex = new Regex(@"(?:slackbot)?? ??(lucky)? ??(image|animate) me (.*)");
         public ProcessedQuery(string text)
         {
             var match = Regex.Match(text.ToLowerInvariant());

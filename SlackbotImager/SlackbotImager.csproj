@@ -94,8 +94,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ProcessedQuery.cs" />
+    <Compile Include="Models\SlackSlashCommandRequest.cs" />
     <Compile Include="Models\SlackRequest.cs" />
     <Compile Include="Models\SlackResponse.cs" />
+    <Compile Include="Models\SlackUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
